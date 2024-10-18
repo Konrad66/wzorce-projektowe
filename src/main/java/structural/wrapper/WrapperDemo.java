@@ -5,13 +5,19 @@ import java.util.List;
 
 public class WrapperDemo {
     public static void main(String[] args) {
-        RegularCar regularCar1 = new RegularCar("audi", 70000, 120);
-        RegularCar regularCar2 = new RegularCar("bmw", 300000, 220);
-        RegularCar winner = raceStream(List.of(regularCar1, regularCar2), 100);
+        Car regularCar1 = new RegularCar("audi", 70000, 120);
+        Car regularCar2 = new RegularCar("bmw", 300000, 220);
+        Car carWrapper1 = new CarWrapper(regularCar1);
+        Car carWrapper2 = new CarWrapper(regularCar2);
+        System.out.println(regularCar1);
+        regularCar1.drive(1);
+        System.out.println(regularCar1);
+        System.out.println(regularCar1);
+
+
+        Car winner = raceStream(List.of(carWrapper1, carWrapper2), 100);
         System.out.println("Winner is " + winner);
-
-
-        System.out.println(findBiggestDistance(List.of(1000, 1500, 800)));
+        //System.out.println(findBiggestDistance(List.of(1000, 1500, 800)));
     }
 
 
@@ -25,10 +31,10 @@ public class WrapperDemo {
         return maxDistance;
     }
 
-    public static RegularCar race(List<RegularCar> cars, int hours) {
+    public static Car race(List<Car> cars, int hours) {
         double higherDistance = 0;
-        RegularCar ourWinner = null;
-        for (RegularCar car : cars) {
+        Car ourWinner = null;
+        for (Car car : cars) {
             double startingMilAge = car.getMileage();
             car.drive(hours);
             double distance = car.getMileage() - startingMilAge;
@@ -40,14 +46,14 @@ public class WrapperDemo {
         return ourWinner;
     }
 
-    public static RegularCar raceStream(List<RegularCar> cars, int hours){
+    public static Car raceStream(List<Car> cars, int hours){
         //.sorted(Comparator.comparingDouble(car -> drive(car, hours)))
         return cars.stream()
                 .max((car1, car2) -> Double.compare(drive(car1, hours), drive(car2, hours)))
                 .orElse(null);
     }
 
-    private static double drive(RegularCar car,int hours){
+    private static double drive(Car car,int hours){
         double startingMilAge = car.getMileage();
         car.drive(hours);
         return car.getMileage() - startingMilAge;

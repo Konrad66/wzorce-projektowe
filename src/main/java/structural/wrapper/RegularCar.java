@@ -1,6 +1,6 @@
 package structural.wrapper;
 
-public class RegularCar {
+public class RegularCar implements Car{
     private String brand;
     private double mileage;
     private int speed;
@@ -11,6 +11,7 @@ public class RegularCar {
         this.speed = speed;
     }
 
+    @Override
     public void drive(int hours){
         mileage += hours * speed;
     }
@@ -19,6 +20,7 @@ public class RegularCar {
         return brand;
     }
 
+    @Override
     public double getMileage() {
         return mileage;
     }
