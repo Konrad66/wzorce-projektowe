@@ -1,6 +1,6 @@
 package structural.adapter.american_module;
 
-public class Tesla implements CarUS{
+public class Tesla implements CarUS {
     private double mileage;
 
     public Tesla(double mileage) {
